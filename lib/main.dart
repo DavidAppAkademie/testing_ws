@@ -11,6 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Davids Aim Game',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey)),
       home: GameScreen(),
