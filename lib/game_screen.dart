@@ -26,103 +26,6 @@ class _GameScreenState extends State<GameScreen> {
   late final FocusNode _focusNode;
 
   @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Preload the image
-    precacheImage(const AssetImage('assets/dav.png'), context);
-  }
-
-  void _startGame() {
-    setState(() {
-      _gameActive = true;
-      _timeLeft = _gameDuration;
-      _hits = 0;
-      _attempts = 0;
-    });
-
-    _spawnNewTarget();
-
-    _gameTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _timeLeft--;
-      });
-
-      if (_timeLeft <= 0) {
-        _endGame();
-      }
-    });
-  }
-
-  void _spawnNewTarget() {
-    final size = MediaQuery.of(context).size;
-    const targetSize = 60.0;
-    const margin = 50.0;
-
-    setState(() {
-      _targetX = margin + _random.nextDouble() * (size.width - targetSize - 2 * margin);
-      _targetY = margin + _random.nextDouble() * (size.height - targetSize - 2 * margin);
-    });
-  }
-
-  void _onTargetTap() {
-    if (!_gameActive) return;
-
-    setState(() {
-      _hits++;
-      _attempts++;
-    });
-
-    _spawnNewTarget();
-  }
-
-  void _onMiss() {
-    if (!_gameActive) return;
-
-    setState(() {
-      _attempts++;
-    });
-  }
-
-  void _endGame() {
-    _gameTimer?.cancel();
-    setState(() {
-      _gameActive = false;
-    });
-  }
-
-  void _resetStats() {
-    setState(() {
-      _timeLeft = _gameDuration;
-      _hits = 0;
-      _attempts = 0;
-    });
-    _spawnNewTarget();
-  }
-
-  void _resetGame() {
-    _gameTimer?.cancel();
-    setState(() {
-      _gameActive = false;
-      _timeLeft = _gameDuration;
-      _hits = 0;
-      _attempts = 0;
-    });
-  }
-
-  @override
-  void dispose() {
-    _gameTimer?.cancel();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return KeyboardListener(
       focusNode: _focusNode,
@@ -322,5 +225,102 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Preload the image
+    precacheImage(const AssetImage('assets/dav.png'), context);
+  }
+
+  void _startGame() {
+    setState(() {
+      _gameActive = true;
+      _timeLeft = _gameDuration;
+      _hits = 0;
+      _attempts = 0;
+    });
+
+    _spawnNewTarget();
+
+    _gameTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _timeLeft--;
+      });
+
+      if (_timeLeft <= 0) {
+        _endGame();
+      }
+    });
+  }
+
+  void _spawnNewTarget() {
+    final size = MediaQuery.of(context).size;
+    const targetSize = 60.0;
+    const margin = 50.0;
+
+    setState(() {
+      _targetX = margin + _random.nextDouble() * (size.width - targetSize - 2 * margin);
+      _targetY = margin + _random.nextDouble() * (size.height - targetSize - 2 * margin);
+    });
+  }
+
+  void _onTargetTap() {
+    if (!_gameActive) return;
+
+    setState(() {
+      _hits++;
+      _attempts++;
+    });
+
+    _spawnNewTarget();
+  }
+
+  void _onMiss() {
+    if (!_gameActive) return;
+
+    setState(() {
+      _attempts++;
+    });
+  }
+
+  void _endGame() {
+    _gameTimer?.cancel();
+    setState(() {
+      _gameActive = false;
+    });
+  }
+
+  void _resetStats() {
+    setState(() {
+      _timeLeft = _gameDuration;
+      _hits = 0;
+      _attempts = 0;
+    });
+    _spawnNewTarget();
+  }
+
+  void _resetGame() {
+    _gameTimer?.cancel();
+    setState(() {
+      _gameActive = false;
+      _timeLeft = _gameDuration;
+      _hits = 0;
+      _attempts = 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    _gameTimer?.cancel();
+    _focusNode.dispose();
+    super.dispose();
   }
 }
