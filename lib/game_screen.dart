@@ -81,6 +81,10 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildGameOverScreen() {
+    final hitRate = calculateHitRate(_hits, _attempts);
+    final score = calculateScore(_hits, hitRate);
+    final rank = getRankTitle(score);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -99,15 +103,15 @@ class _GameScreenState extends State<GameScreen> {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Text(
-            'Punkte: ${calculateScore(_hits, calculateHitRate(_hits, _attempts))}',
+            'Punkte: $score',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Text(
-            'Trefferquote: ${(calculateHitRate(_hits, _attempts) * 100).toStringAsFixed(1)}%',
+            'Trefferquote: ${(hitRate * 100).toStringAsFixed(1)}%',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           Text(
-            'Rang: ${getRankTitle(calculateScore(_hits, calculateHitRate(_hits, _attempts)))}',
+            'Rang: $rank',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(height: 40),
