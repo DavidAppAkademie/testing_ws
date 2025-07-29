@@ -193,7 +193,7 @@ class _GameScreenState extends State<GameScreen> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               Text(
-                'Trefferquote: ${calculateHitRate(_hits, _attempts).toStringAsFixed(1)}%',
+                'Trefferquote: ${(calculateHitRate(_hits, _attempts) * 100).toStringAsFixed(1)}%',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
