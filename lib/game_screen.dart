@@ -31,6 +31,13 @@ class _GameScreenState extends State<GameScreen> {
     _focusNode = FocusNode();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Preload the image
+    precacheImage(const AssetImage('assets/dav.png'), context);
+  }
+
   void _startGame() {
     setState(() {
       _gameActive = true;
@@ -202,7 +209,7 @@ class _GameScreenState extends State<GameScreen> {
               Text(
                 'Drücke Enter für neues Spiel',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
                 ),
               ),
             ],
@@ -233,7 +240,7 @@ class _GameScreenState extends State<GameScreen> {
               Text(
                 'Drücke Enter zum Starten',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
                 ),
               ),
             ],
@@ -276,7 +283,7 @@ class _GameScreenState extends State<GameScreen> {
             child: Text(
               'Space: Restart',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
               ),
             ),
           ),
