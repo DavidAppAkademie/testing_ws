@@ -168,88 +168,95 @@ class _GameScreenState extends State<GameScreen> {
 
   Widget _buildGameContent() {
     if (!_gameActive) {
-      // Check if game has ended (timeLeft = 0) or not started yet
       if (_timeLeft <= 0) {
-        // Game ended
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Spiel beendet!',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Treffer: $_hits',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Text(
-                'Versuche: $_attempts',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Text(
-                'Punkte: ${calculateScore(_hits, calculateHitRate(_hits, _attempts))}',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Text(
-                'Trefferquote: ${(calculateHitRate(_hits, _attempts) * 100).toStringAsFixed(1)}%',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              Text(
-                'Rang: ${getRankTitle(calculateScore(_hits, calculateHitRate(_hits, _attempts)))}',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: _resetGame,
-                child: const Text('Neues Spiel'),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Drücke Enter für neues Spiel',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-                ),
-              ),
-            ],
-          ),
-        );
+        return _buildGameOverScreen();
       } else {
-        // Start screen
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Aim Game',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Klicke auf die erscheinenden Boxen!\n$_gameDuration Sekunden Zeit.',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: _startGame,
-                child: const Text('Start'),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Drücke Enter zum Starten',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-                ),
-              ),
-            ],
-          ),
-        );
+        return _buildStartScreen();
       }
     }
+    return _buildActiveGameScreen();
+  }
 
-    // Active game
+  Widget _buildGameOverScreen() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Spiel beendet!',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'Treffer: $_hits',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+            'Versuche: $_attempts',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+            'Punkte: ${calculateScore(_hits, calculateHitRate(_hits, _attempts))}',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+            'Trefferquote: ${(calculateHitRate(_hits, _attempts) * 100).toStringAsFixed(1)}%',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text(
+            'Rang: ${getRankTitle(calculateScore(_hits, calculateHitRate(_hits, _attempts)))}',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: _resetGame,
+            child: const Text('Neues Spiel'),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Drücke Enter für neues Spiel',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStartScreen() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Aim Game',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'Klicke auf die erscheinenden Boxen!\n$_gameDuration Sekunden Zeit.',
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          ElevatedButton(
+            onPressed: _startGame,
+            child: const Text('Start'),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Drücke Enter zum Starten',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActiveGameScreen() {
     return Stack(
       children: [
         // Game stats
