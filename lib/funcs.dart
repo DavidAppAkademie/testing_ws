@@ -16,9 +16,9 @@ int calculateScore(int hits, double hitRate) {
 String getRankTitle(int score) {
   if (score >= 500) return "God";
   if (score >= 400) return "Legend";
-  if (score >= 350) return "Pro";
-  if (score >= 300) return "Sharpshooter";
-  if (score >= 200) return "Good Shot";
-  if (score >= 100) return "Average";
+  if (score > 350) return "Pro";
+  if (score > 300) return "Sharpshooter";
+  if (score > 200) return "Good Shot";
+  if (score > 100) return "Average";
   return "Needs Practice";
 }
