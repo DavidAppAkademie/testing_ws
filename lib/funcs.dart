@@ -1,10 +1,16 @@
 /// returns the hit rate as a decimal (0.0 to 1.0)
 double calculateHitRate(int hits, int totalAttempts) {
+  if (totalAttempts == 0) return 0;
+  if (hits > totalAttempts) return 1;
+
   return hits / totalAttempts;
 }
 
 /// calculates the score based on hits and hit rate
 int calculateScore(int hits, double hitRate) {
+  if (hitRate > 1) {
+    hitRate = 1;
+  }
   // Base points: 10 points per hit
   int baseScore = hits * 10;
 
@@ -16,9 +22,9 @@ int calculateScore(int hits, double hitRate) {
 String getRankTitle(int score) {
   if (score >= 500) return "God";
   if (score >= 400) return "Legend";
-  if (score > 350) return "Pro";
-  if (score > 300) return "Sharpshooter";
-  if (score > 200) return "Good Shot";
-  if (score > 100) return "Average";
+  if (score >= 350) return "Pro";
+  if (score >= 300) return "Sharpshooter";
+  if (score >= 200) return "Good Shot";
+  if (score >= 100) return "Average";
   return "Needs Practice";
 }
